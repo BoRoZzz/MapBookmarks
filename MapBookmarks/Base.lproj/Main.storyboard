@@ -1,25 +1,340 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="efF-1g-F2o">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="6s5-in-bqE">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <animations/>
+                            </mapView>
+                        </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6s5-in-bqE" secondAttribute="trailing" id="NDy-4U-2Wl"/>
+                            <constraint firstItem="6s5-in-bqE" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="T27-QV-ShA"/>
+                            <constraint firstItem="6s5-in-bqE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="flE-44-UMi"/>
+                            <constraint firstItem="6s5-in-bqE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="lmC-mj-1gZ">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-64"/>
+                            </constraint>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="SYa-XC-Jpe">
+                        <barButtonItem key="leftBarButtonItem" title="Route" id="GWE-BJ-aG7">
+                            <connections>
+                                <action selector="switchRouteMode:" destination="BYZ-38-t0r" id="YV5-5J-Ff2"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Bookmarks" id="is2-HX-wTw">
+                            <connections>
+                                <segue destination="Irc-5U-c6H" kind="show" identifier="bookmarksList" id="rrH-ig-3IZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="mapView" destination="6s5-in-bqE" id="iKz-0C-pbo"/>
+                        <outlet property="routeButton" destination="GWE-BJ-aG7" id="NSC-CM-6Oe"/>
+                        <segue destination="vlT-Ho-EvW" kind="show" identifier="bookmarkDetails" id="J3j-AM-kAY"/>
+                        <segue destination="EqL-WN-oNM" kind="custom" identifier="popoverSegue" customClass="WYStoryboardPopoverSegue" id="0La-6L-7mM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1757.25" y="388.875"/>
+        </scene>
+        <!--Bookmarks Table View Controller-->
+        <scene sceneID="pFq-IV-hoU">
+            <objects>
+                <tableViewController id="Irc-5U-c6H" customClass="BookmarksTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3CI-6V-4Mu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookmarkCell" id="etf-ky-hhZ">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="etf-ky-hhZ" id="hyY-Yu-qT3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <segue destination="vlT-Ho-EvW" kind="show" identifier="showDetails" id="Dq2-kg-IfZ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Irc-5U-c6H" id="WbQ-cd-b9Z"/>
+                            <outlet property="delegate" destination="Irc-5U-c6H" id="xtG-0S-P8e"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Wx4-Kg-iAE">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="qxk-X3-Mxt">
+                            <connections>
+                                <action selector="enterEditMode:" destination="Irc-5U-c6H" id="Zss-OU-eO1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YKF-vp-NyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2495.25" y="388.875"/>
+        </scene>
+        <!--Popover Table View Controller-->
+        <scene sceneID="UtC-z7-tuR">
+            <objects>
+                <tableViewController id="EqL-WN-oNM" customClass="PopoverTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="sYr-bp-5BV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookmarkPopoverCell" id="3lh-Hj-UNr">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3lh-Hj-UNr" id="SD7-oU-IOC">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="EqL-WN-oNM" id="iE7-vC-6ny"/>
+                            <outlet property="delegate" destination="EqL-WN-oNM" id="y7c-nF-tZM"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7M5-n0-L8j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2495.25" y="-222.375"/>
+        </scene>
+        <!--Details Table View Controller-->
+        <scene sceneID="iIi-FE-SqW">
+            <objects>
+                <tableViewController id="vlT-Ho-EvW" customClass="DetailsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="DWS-sm-ITv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="VgN-vR-2gU">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fuh-3f-Vx9">
+                                        <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fuh-3f-Vx9" id="8d8-5F-WeX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMa-MN-Ovb">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <animations/>
+                                                    <state key="normal" title="Load nearby places"/>
+                                                    <connections>
+                                                        <action selector="loadNearbyPlaces:" destination="vlT-Ho-EvW" eventType="touchUpInside" id="KON-tX-rme"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="eMa-MN-Ovb" firstAttribute="centerY" secondItem="8d8-5F-WeX" secondAttribute="centerY" id="S1Q-vd-AUS"/>
+                                                <constraint firstItem="eMa-MN-Ovb" firstAttribute="centerX" secondItem="8d8-5F-WeX" secondAttribute="centerX" id="uKG-SV-fJW"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="eMa-MN-Ovb"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="S1Q-vd-AUS"/>
+                                                    <exclude reference="uKG-SV-fJW"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="eMa-MN-Ovb"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="S1Q-vd-AUS"/>
+                                                    <include reference="uKG-SV-fJW"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="216" id="Plc-64-jtD">
+                                        <rect key="frame" x="0.0" y="108" width="375" height="216"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Plc-64-jtD" id="aCy-jg-lJf">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8e-up-bO2">
+                                                    <rect key="frame" x="0.0" y="-216" width="320" height="216"/>
+                                                    <animations/>
+                                                </pickerView>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="v8e-up-bO2" secondAttribute="trailing" id="9p4-6B-KQk"/>
+                                                <constraint firstItem="v8e-up-bO2" firstAttribute="top" secondItem="aCy-jg-lJf" secondAttribute="top" id="EYJ-P9-era"/>
+                                                <constraint firstItem="v8e-up-bO2" firstAttribute="leading" secondItem="aCy-jg-lJf" secondAttribute="leading" id="qPm-UA-Lqo"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="v8e-up-bO2"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="9p4-6B-KQk"/>
+                                                    <exclude reference="EYJ-P9-era"/>
+                                                    <exclude reference="qPm-UA-Lqo"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="v8e-up-bO2"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="9p4-6B-KQk"/>
+                                                    <include reference="EYJ-P9-era"/>
+                                                    <include reference="qPm-UA-Lqo"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="S9n-jr-bMP">
+                                        <rect key="frame" x="0.0" y="324" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S9n-jr-bMP" id="ipc-ok-0Q0">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKU-x9-VUf">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <animations/>
+                                                    <state key="normal" title="Center in map"/>
+                                                    <connections>
+                                                        <segue destination="bD4-h3-gHb" kind="unwind" identifier="centerInMap" unwindAction="centerInMap:" id="zqL-wl-eAS"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGC-2c-ySn">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <animations/>
+                                                    <state key="normal" title="Route to"/>
+                                                    <connections>
+                                                        <segue destination="bD4-h3-gHb" kind="unwind" identifier="showRoute" unwindAction="showRoute:" id="AaY-zI-RjA"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="NKU-x9-VUf" firstAttribute="baseline" secondItem="eGC-2c-ySn" secondAttribute="baseline" id="4Yl-6T-65c"/>
+                                                <constraint firstItem="eGC-2c-ySn" firstAttribute="trailing" secondItem="ipc-ok-0Q0" secondAttribute="trailingMargin" id="PQc-9S-Wua"/>
+                                                <constraint firstItem="NKU-x9-VUf" firstAttribute="leading" secondItem="ipc-ok-0Q0" secondAttribute="leadingMargin" id="Px8-Mc-QuL"/>
+                                                <constraint firstItem="NKU-x9-VUf" firstAttribute="centerY" secondItem="ipc-ok-0Q0" secondAttribute="centerY" id="b9B-fK-vs2"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="NKU-x9-VUf"/>
+                                                    <exclude reference="eGC-2c-ySn"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="4Yl-6T-65c"/>
+                                                    <exclude reference="Px8-Mc-QuL"/>
+                                                    <exclude reference="b9B-fK-vs2"/>
+                                                    <exclude reference="PQc-9S-Wua"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="NKU-x9-VUf"/>
+                                                    <include reference="eGC-2c-ySn"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="4Yl-6T-65c"/>
+                                                    <include reference="Px8-Mc-QuL"/>
+                                                    <include reference="b9B-fK-vs2"/>
+                                                    <include reference="PQc-9S-Wua"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="vlT-Ho-EvW" id="yvm-VC-r7Y"/>
+                            <outlet property="delegate" destination="vlT-Ho-EvW" id="LcK-dL-7Eg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="XI0-pA-dTN">
+                        <barButtonItem key="rightBarButtonItem" title="Trash" id="t2M-8v-abG">
+                            <connections>
+                                <action selector="removeBookmark:" destination="vlT-Ho-EvW" id="Hrp-tH-dth"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="loadNearbyPlaces" destination="eMa-MN-Ovb" id="7H6-cN-CVD"/>
+                        <outlet property="picker" destination="v8e-up-bO2" id="aZJ-HK-eeF"/>
+                        <segue destination="bD4-h3-gHb" kind="unwind" identifier="unwindSegueToBookmarks" unwindAction="backSegueOnDelete:" id="oeR-WW-OPv"/>
+                        <segue destination="bD4-h3-gHb" kind="unwind" identifier="unwindSegueToMaps" unwindAction="unwindSegueFromDetails:" id="9WB-It-g6J"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NUF-bG-KwW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="bD4-h3-gHb" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1757.25" y="1001.625"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ohe-9C-HnF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="efF-1g-F2o" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" opaque="NO" alpha="0.5" contentMode="scaleToFill" id="zRa-4s-5p8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="bJw-iM-vAB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dff-QO-AQI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="973.5" y="389.25"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="J3j-AM-kAY"/>
+    </inferredMetricsTieBreakers>
 </document>
